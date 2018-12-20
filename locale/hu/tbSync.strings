@@ -2,34 +2,37 @@ info.idle=Tétlen
 info.error=Hiba
 info.sync=Összehangoló
 
+button.syncthis=Fiók összehangolása
+button.tryagain=Próbálkozzon újra a szerverhez való csatlakozással
+button.enableAndConnect=Engedélyezze a fiókot és próbálja meg csatlakozni a szerverhez
+button.disableAndEdit=Letiltja a fiókot a beállítások szerkesztéséhez
+button.connecting=Összekapcsol a szerverhez
+button.syncing=Összehangoló
+
 prompt.DeleteAccount=Biztos benne, hogy törölni szeretne fiók ##accountName##?
-prompt.Disable=Biztosan letiltja ezt a fiókot? Minden helyi módosítás, amely még nincs összehangolva, elveszik!
+prompt.Disable=Biztosan letiltja ezt a fiókot? Minden helyi módosítás, amely még nincs szinkronizálva, elveszik!
 prompt.Password=Felhasználói ##user## jelszavát:
 prompt.Unsubscribe=Biztosan le szeretné iratkozni ezt az elemet? Minden helyi módosítás, amely még nincs összehangolva, elveszik!
-prompt.Erase=Biztosan eltávolít egy ismeretlen szolgáltató fiókját a fiókok listáiról?
+prompt.UnlockSettings=Az előre meghatározott szerver beállításainak módosítása összehangolási hibákat okozhat. Biztosan fel akarja oldani az összes előre meghatározott szerver beállítását?
 
-account=Thunderbird-összehangolás fiók [##accountname##]
+account=TbSync fiók [##accountname##]
 
-accountacctions.delete=A(z) „##accountname##” fiók törlése
-accountacctions.sync=A(z) „##accountname##” fiók összehangolása
-accountacctions.enable=A(z) „##accountname##” fiók engedélyezze és próbálja meg csatlakozni a kiszolgálóhoz
-accountacctions.disable=A(z) „##accountname##” fiók letiltása
+accountacctions.delete=Fiók törlése „##accountname##”
+accountacctions.sync=Fiók összehangolása „##accountname##”
+accountacctions.enable=Engedélyezze a(z) „##accountname##” fiókot és próbálja meg csatlakozni a szerverhez
+accountacctions.disable=Fiók letiltása „##accountname##”
 
-manager.tryagain=Próbálkozzon újra a kiszolgálóhoz való csatlakozással
-manager.connecting=Kiszolgáló összekapcsolása
-manager.resource=Mappa
-manager.status=Állapot
+update_available=frissítés elérhető
+old_beta_version=régebbi bétaverzió
+amo_repository=Thunderbird-kiegészítő adattár
+github_repository=TbSync GitHub adattár
+update_to_stable=Ajánlás: Frissítés a legfrissebb stabil változatra.
+update_to_beta=Ajánlás: Frissítés a legújabb bétaverzióra.
 
 addressbook.searchall=Keresése az összes névjegyzékben
 addressbook.searchthis=Keresése csak ezt a címjegyzékben
 addressbook.searchgal=Keresése ezt a névjegyzékben és a globális könyvtárban (##replace.1##)
 
-installProvider.header=A(z) „##replace.1##” szolgáltató a Thunderbird-összehangoláshoz még nincs telepítve.
-supportwizard.provider=Szolgáltató: ##replace.1##
+installProvider.header=A(z) „##replace.1##” szolgáltató a TbSync-hez még nincs telepítve.
 
-VersionOfThunderbirdNotSupported=A Thunderbird-összehangolás jelenleg csak a Thunderbird 60 verziót támogatja. A Thunderbird béta-verzió használata hibákat okoz, amelyek pillanatnyilag nem rögzíthetők.
-OopsMessage=Hoppá, valami hiba történt a Thunderbird-összehangolás indításakor.
-UnableToTraceError=Nem lehet nyomon követni ezt a hibát, mert a hibakeresési napló jelenleg nincs engedélyezve. Szeretné engedélyezni a hibakeresési naplót, hogy segítsen javítani a hibát?
-RestartThunderbirdAndTryAgain=A Thunderbird-összehangolás hibakeresési napló engedélyezve van, kérjük, indítsa újra a Thunderbird programot, és próbálkozzon újra a Thunderbird-összehangolás megnyitásával.
-HelpFixStartupError=A hiba javításához hibakeresési naplót küldhet a Thunderbird-összehangolás fejlesztőnek. Készüljön fel most arra az e-mailre?
-NoDebugLog=Nem találtak hasznos hibaelhárító üzeneteket. Engedélyezze a hibakeresési módot, indítsa újra a Thunderbird programot, és ismételje meg a hibás viselkedést elindító lépéseket.
+migrate=TbSync is evolving into a central sync manager for multiple protocols, which can be loaded as needed. Therefore, the next version of TbSync will no longer include the ActiveSync provider, which has been moved into a separate ActiveSync provider Add-On.\n\nWithout this provider AddOn you will no longer be able to sync your currently setup ActiveSync accounts, once the next version of TbSync has been released. For a smooth upgrade, it is strongly suggested to install the ActiveSync provider now. Do you want to open its Add-On page for easy installation?

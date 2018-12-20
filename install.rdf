@@ -8,7 +8,7 @@
         <em:bootstrap>true</em:bootstrap>
         <em:unpack>false</em:unpack>
         <em:multiprocessCompatible>true</em:multiprocessCompatible>
-        <em:name>TbSync [beta release channel]</em:name>
+        <em:name>TbSync [Beta Release Channel]</em:name>
         <em:version>1.0.1</em:version>
         <em:description>Synchronize contacts, tasks and calendars via Exchange ActiveSync or CalDAV/CardDAV to Thunderbird</em:description>
         <em:translator>John Bieling (de)</em:translator>

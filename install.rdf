@@ -2,13 +2,13 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
-        <em:id>tbsync@jobisoft.de</em:id>
+        <em:id>tbsyncalpha@jobisoft.de</em:id>
         <em:type>2</em:type> <!-- type=extension --> 
         <em:optionsURL>chrome://tbsync/content/manager/addonoptions.xul</em:optionsURL>
         <em:bootstrap>true</em:bootstrap>
         <em:unpack>false</em:unpack>
         <em:multiprocessCompatible>true</em:multiprocessCompatible>
-        <em:name>TbSync [dev version installer]</em:name>
+        <em:name>TbSync [alpha version installer]</em:name>
         <em:version>1.0.1</em:version>
         <em:description>Synchronize contacts, tasks and calendars via Exchange ActiveSync or CalDAV/CardDAV to Thunderbird</em:description>
         <em:translator>John Bieling (de)</em:translator>

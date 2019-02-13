@@ -8,7 +8,7 @@
         <em:bootstrap>true</em:bootstrap>
         <em:unpack>false</em:unpack>
         <em:multiprocessCompatible>true</em:multiprocessCompatible>
-        <em:name>TbSync [alpha version installer]</em:name>
+        <em:name>TbSync Alpha Version Installer</em:name>
         <em:version>1.0.1</em:version>
         <em:description>Enable this AddOn to install the latest alpha version of TbSync and its providers</em:description>
         <em:creator>John Bieling</em:creator>

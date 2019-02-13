@@ -19,6 +19,25 @@ function installAddOn (url, name ) {
         });
 }
 
+function setDisableState (enableState) {
+    return new Promise(function(resolve, reject) {
+        let finalizeInitByWaitingForAddons = function (addons) {
+            for (let a=0; a < addons.length; a++) {
+                switch (addons[a].id.toString()) {
+                case "eas4tbsync@jobisoft.de":
+                    addons[a].userDisabled = enableState;
+                    break;
+                case "dav4tbsync@jobisoft.de":
+                    addons[a].userDisabled = enableState;
+                    break;
+                }
+            }
+            resolve();
+        }
+        
+        AddonManager.getAllAddons(finalizeInitByWaitingForAddons);
+    });
+}
 
 
 function install(data, reason) {
@@ -28,11 +47,13 @@ function uninstall(data, reason) {
 }
 
 function startup(data, reason) {
-	Task.spawn(function* () {
-		yield installAddOn("C:\\Users\\John\\Documents\\GitHub\\DAV-4-TbSync\\DAV-4-TbSync.xpi", "DAV 4 TbSync");
-		yield installAddOn("C:\\Users\\John\\Documents\\GitHub\\EAS-4-TbSync\\EAS-4-TbSync.xpi", "EAS 4 TbSync");
-		yield installAddOn("C:\\Users\\John\\Documents\\GitHub\\TbSync\\TbSync-beta.xpi", "TbSync");	
-	}).catch(Components.utils.reportError);
+    Task.spawn(function* () {
+        yield setDisableState(true);
+        yield installAddOn("C:\\Users\\John\\Documents\\GitHub\\DAV-4-TbSync\\DAV-4-TbSync.xpi", "DAV 4 TbSync");
+        yield installAddOn("C:\\Users\\John\\Documents\\GitHub\\EAS-4-TbSync\\EAS-4-TbSync.xpi", "EAS 4 TbSync");
+        yield installAddOn("C:\\Users\\John\\Documents\\GitHub\\TbSync\\TbSync-beta.xpi", "TbSync");	
+        yield setDisableState(false);
+    }).catch(Components.utils.reportError);
 }
 
 function shutdown(data, reason) {

@@ -27,7 +27,13 @@ function install(data, reason) {
 function uninstall(data, reason) {
 }
 
-async function startup(data, reason) {
+function startup(data, reason) {
+  if (reason !=  ADDON_ENABLE) {
+    return;
+  }
+  
+  console.log("Updating TbSync");
+
   // Check if the main window has finished loading
   let windows = Services.wm.getEnumerator("mail:3pane");
   while (windows.hasMoreElements()) {
@@ -77,6 +83,8 @@ var WindowListener = {
 
     let thisAddOn = await AddonManager.getAddonByID("tbsyncalpha@jobisoft.de");
     thisAddOn.userDisabled = true;
+    console.log("Updating TbSync - Done!");
+
   },
 
 

@@ -1,26 +1,11 @@
-Components.utils.import("resource://gre/modules/Services.jsm");
-Components.utils.import("resource://gre/modules/AddonManager.jsm");
-Components.utils.import("resource://gre/modules/Task.jsm");
-Components.utils.import("resource://gre/modules/FileUtils.jsm");
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+var { AddonManager } = ChromeUtils.import("resource://gre/modules/AddonManager.jsm");
+var { FileUtils } = ChromeUtils.import("resource://gre/modules/FileUtils.jsm");
 
-function installAddOn (url, name) {
-    return new Promise(function(resolve, reject) {
-        let doSilentInstall = function (aAddonInstall) {
-            aAddonInstall.install();
-            resolve();
-        }        
-        var nsifile   = new FileUtils.File( url );
-        AddonManager.getInstallForFile(nsifile, doSilentInstall, "application/x-xpinstall");
-    });
-}
-
-function getAddOn (id) {
-    return new Promise(function(resolve, reject) {
-        let doGetAddon = function (addon) {
-            resolve(addon);
-        }
-        AddonManager.getAddonByID(id, doGetAddon);
-    });
+async function installAddOn (url, name) {
+    var nsifile   = new FileUtils.File( url );
+    let aAddonInstall = await AddonManager.getInstallForFile(nsifile, "application/x-xpinstall");
+    aAddonInstall.install();
 }
 
 function sleep(delay) {
@@ -42,34 +27,75 @@ function install(data, reason) {
 function uninstall(data, reason) {
 }
 
-function startup(data, reason) {
-    Task.spawn(function* () {
-        try {
-            let tbsyncAddOn = yield getAddOn("tbsync@jobisoft.de");
-            tbsyncAddOn.userDisabled = true;
-        } catch (e) {
-            Components.utils.reportError(e);            
-        }
-        
-        yield installAddOn("C:\\Users\\John\\Documents\\GitHub\\DAV-4-TbSync\\DAV-4-TbSync.xpi", "DAV 4 TbSync");
-        yield sleep(500);
-        yield installAddOn("C:\\Users\\John\\Documents\\GitHub\\EAS-4-TbSync\\EAS-4-TbSync.xpi", "EAS 4 TbSync");
-        yield sleep(500);
-        yield installAddOn("C:\\Users\\John\\Documents\\GitHub\\TbSync\\TbSync-beta.xpi", "TbSync");	
-        yield sleep(500);
-        
-        let easAddOn = yield getAddOn("eas4tbsync@jobisoft.de");
-        let davAddOn = yield getAddOn("dav4tbsync@jobisoft.de");
-        let tbsyncAddOn = yield getAddOn("tbsync@jobisoft.de");
-        easAddOn.userDisabled = false;
-        davAddOn.userDisabled = false;
-        tbsyncAddOn.userDisabled = false;
+async function startup(data, reason) {
+  // Check if the main window has finished loading
+  let windows = Services.wm.getEnumerator("mail:3pane");
+  while (windows.hasMoreElements()) {
+    let domWindow = windows.getNext().QueryInterface(Ci.nsIDOMWindow);
+    WindowListener.loadIntoWindow(domWindow);
+  }
 
-        let thisAddOn = yield getAddOn("tbsyncalpha@jobisoft.de");
-        thisAddOn.userDisabled = true;
-
-    }).catch(Components.utils.reportError);
+  // Wait for any new windows to open.
+  Services.wm.addListener(WindowListener);
+  
 }
 
 function shutdown(data, reason) {
 }
+
+var WindowListener = {
+
+  async loadIntoWindow(window) {
+    if (window.document.readyState != "complete") {
+      // Make sure the window load has completed.
+      await new Promise(resolve => {
+        window.addEventListener("load", resolve, { once: true });
+      });
+    }
+
+    // the main window has loaded, continue with init
+    try {
+        let tbsyncAddOn = await AddonManager.getAddonByID("tbsync@jobisoft.de");
+        tbsyncAddOn.userDisabled = true;
+    } catch (e) {
+        Components.utils.reportError(e);            
+    }
+    
+    await installAddOn("C:\\Users\\John\\Documents\\GitHub\\DAV-4-TbSync\\DAV-4-TbSync.xpi", "DAV 4 TbSync");
+    await sleep(500);
+    await installAddOn("C:\\Users\\John\\Documents\\GitHub\\EAS-4-TbSync\\EAS-4-TbSync.xpi", "EAS 4 TbSync");
+    await sleep(500);
+    await installAddOn("C:\\Users\\John\\Documents\\GitHub\\TbSync\\TbSync-beta.xpi", "TbSync");	
+    await sleep(500);
+    
+    let easAddOn = await AddonManager.getAddonByID("eas4tbsync@jobisoft.de");
+    let davAddOn = await AddonManager.getAddonByID("dav4tbsync@jobisoft.de");
+    let tbsyncAddOn = await AddonManager.getAddonByID("tbsync@jobisoft.de");
+    easAddOn.userDisabled = false;
+    davAddOn.userDisabled = false;
+    tbsyncAddOn.userDisabled = false;
+
+    let thisAddOn = await AddonManager.getAddonByID("tbsyncalpha@jobisoft.de");
+    thisAddOn.userDisabled = true;
+  },
+
+
+  unloadFromWindow(window) {
+  },
+
+  // nsIWindowMediatorListener functions
+  onOpenWindow(xulWindow) {
+    // A new window has opened.
+    let domWindow = xulWindow.QueryInterface(Ci.nsIInterfaceRequestor).getInterface(Ci.nsIDOMWindow);
+    // Check if the opened window is the one we want to modify.
+    if (domWindow.document.documentElement.getAttribute("windowtype") === "mail:3pane") {
+      this.loadIntoWindow(domWindow);
+    }
+  },
+
+  onCloseWindow(xulWindow) {
+  },
+
+  onWindowTitleChange(xulWindow, newTitle) {
+  },
+};

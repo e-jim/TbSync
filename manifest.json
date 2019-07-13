@@ -1,0 +1,20 @@
+{
+  "applications": {
+    "gecko": {
+      "id": "tbsyncalpha@jobisoft.de",
+      "strict_min_version": "68.0"
+    }
+  },
+  "manifest_version": 2,
+  "name": "TbSync Alpha Version Installer",
+  "version": "1.0",
+  "author": "John Bieling",
+  "homepage_url": "https://github.com/jobisoft/TbSync/",
+  "description": "Enable this AddOn to install the latest alpha version of TbSync and its providers",
+  "icons": {
+    "32": "skin/tbsync.png"
+  },
+  "legacy": {
+    "type": "bootstrap"
+  }
+}

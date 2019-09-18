@@ -26,7 +26,7 @@
 <!ENTITY manager.provider "Installer un provider">
 
 <!ENTITY password.title "Demande de mots de passe TbSync">
-<!ENTITY password.description "Veuilliez mettre à jour le mot de passe pour le compte TbSync suivant:">
+<!ENTITY password.description "Veuillez mettre à jour le mot de passe pour le compte TbSync suivant:">
 <!ENTITY password.account "Compte:">
 <!ENTITY password.user "Utilisateur:">
 <!ENTITY password.password "Mot de passe:">
